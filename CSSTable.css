@@ -1,0 +1,10 @@
+body {
+    background-color: #eee;
+    justify-content: left;
+}
+
+.fullScreenFrame > div {
+    display: flex;
+    justify-content: left;
+    width: 400px;
+}
