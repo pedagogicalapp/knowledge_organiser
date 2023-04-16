@@ -9,5 +9,5 @@ bing_image_downloader
 backports.zoneinfo==0.2.1;python_version<"3.9"
 gsheetsdb
 gspread_pandas
-pptx
+python-pptx
 streamlit-analytics
