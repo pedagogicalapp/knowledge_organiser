@@ -75,6 +75,7 @@ def generate_response(MODEL, PROMPT, MAX_TOKENS=750, TEMP=0.99, TOP_P=0.5, N=1, 
 MODEL = 'text-davinci-003'
 streamlit_analytics.start_tracking()
 st.header('Knowledge Organiser Generator')
+st.sidebar.image('pedagogical_18.png')
 st.sidebar.markdown("This worksheet generator was created using OpenAI's generative AI. Please use it carefully and check any output before using it with learners as it could be biased or wrong. ")
 st.markdown("Other Pedagogical apps to check out: [worksheet generator](https://pedagogical.app/)")
 
@@ -119,7 +120,7 @@ characters_quotes_check = st.checkbox('Character Quotes')
 dramatic_devices_check = st.checkbox('Dramatic Devices')
 plot_check = st.checkbox('Plot')
 
-generate_worksheet = st.button('Generate Worksheet')
+generate_worksheet = st.button('Generate Knowledge Organiser')
 
 if generate_worksheet:
     with st.spinner(text="Your worksheet is in the oven 🧠 ... If you want to work with Pedagogical to improve the app please click [here](https://forms.gle/jDy1WNgrnCTWsDG16) ... Thank you!"):
@@ -293,7 +294,24 @@ if generate_worksheet:
 
 streamlit_analytics.stop_tracking()
 
+scope = ['https://spreadsheets.google.com/feeds']
 
+credentials = service_account.Credentials.from_service_account_info(
+                st.secrets["gcp_service_account"], scopes = scope)
+client = Client(scope=scope,creds=credentials)
+spreadsheetname = st.secrets["private_gsheets_knowledge_organiser_url"]
+spread = Spread(spreadsheetname,client = client)
+read_df = spread.sheet_to_df(index=False)
+emails = list(read_df.emails.values)
+prompts = list(read_df.prompts.values)
+dates = list(read_df.dates.values)
 
-
-
+today = datetime.now()
+emails.append(email)
+prompts.append(topic)
+dates.append(today)
+def update_the_spreadsheet(spreadsheetname,dataframe):
+    spread.df_to_sheet(dataframe,sheet = spreadsheetname,index = False)
+d = {'emails': emails, 'prompts': prompts, 'dates': dates}
+df = pd.DataFrame(data=d)
+update_the_spreadsheet('Sheet1',df)
