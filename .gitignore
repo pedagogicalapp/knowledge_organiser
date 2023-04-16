@@ -58,6 +58,7 @@ coverage.xml
 #Secrets
 *.toml
 *.streamlit
+.streamlit/secrets.toml
 
 # Django stuff:
 *.log
