@@ -24,6 +24,7 @@ from datetime import datetime
 from pptx import Presentation
 from io import BytesIO
 from pptx.util import Inches, Pt
+import streamlit_analytics
 
 # Config
 
@@ -72,9 +73,10 @@ def generate_response(MODEL, PROMPT, MAX_TOKENS=750, TEMP=0.99, TOP_P=0.5, N=1, 
   return response['choices'][0]['text']
 
 MODEL = 'text-davinci-003'
-
+streamlit_analytics.start_tracking()
 st.header('Knowledge Organiser Generator')
-
+st.sidebar.markdown("This worksheet generator was created using OpenAI's generative AI. Please use it carefully and check any output before using it with learners as it could be biased or wrong. ")
+st.markdown("Other Pedagogical apps to check out: [worksheet generator](https://pedagogical.app/)")
 
 txt_button = st.checkbox('What is a knowledge organiser?', help='The learning science behind Knowledge Organisers')
 if txt_button:
@@ -289,7 +291,7 @@ if generate_worksheet:
                         data = binary_output.getvalue(),
                         file_name = 'pedagogical_knowledge_organiser.pptx')
 
-
+streamlit_analytics.stop_tracking()
 
 
 
