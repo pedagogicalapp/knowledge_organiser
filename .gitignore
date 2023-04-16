@@ -55,6 +55,10 @@ coverage.xml
 *.mo
 *.pot
 
+#Secrets
+*.toml
+*.streamlit
+
 # Django stuff:
 *.log
 local_settings.py
