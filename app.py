@@ -95,11 +95,11 @@ if txt_button:
     - [Students should understand concepts, learn how the concepts relate to others and form an overall picture and, finally, use a knoweldge organiser to memorise key information.](https://www.supermemo.com/en/blog/twenty-rules-of-formulating-knowledge)
     ''')
 
-    st.subheader('"Objections"')
+    st.subheader('Critiques of Knowledge Organisers')
     lethal_injections_txt = st.markdown('''
-    - Knowledge Organisers were originally developed at Michaela School, and pioneered by Joe Kirby.
+    - Knowledge Organisers were originally developed at Michaela School, and pioneered by Joe Kirby, according to [this podcast](https://www.ollielovell.com/errr/harryfletcherwood2/) Michaela School has reduced their use due to their restrictive nature..
     - Some teachers find they lead to students ['blindly copying answers'](https://shallteach.wordpress.com/2020/07/25/knowledge-organisers-a-failed-revolution/).
-    - Knowledge organisers don't work as well for (subjects with more procedural knowledge)[https://tothereal.wordpress.com/2018/06/04/why-maths-teachers-dont-like-knowledge-organisers/], e.g. Maths.
+    - Knowledge organisers may not work as well for [subjects with more procedural knowledge](https://tothereal.wordpress.com/2018/06/04/why-maths-teachers-dont-like-knowledge-organisers/), e.g. Maths.
     - They present knoweldge as linear, when [information is often relational.](https://shallteach.wordpress.com/2020/07/25/knowledge-organisers-a-failed-revolution/)
     ''')
 
