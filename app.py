@@ -108,6 +108,9 @@ topic = st.text_input('Knowledge Organiser Topic')
 reading_age = st.slider('Reading Age', 0, 18)
 
 components = []
+cloze_components = []
+blank_components = []
+
 st.markdown("Humanities and Sciences Options")
 key_words_check = st.checkbox('Key Words')
 key_concepts_check = st.checkbox('Key concepts')
@@ -119,6 +122,8 @@ characters_check = st.checkbox('Key Characters')
 characters_quotes_check = st.checkbox('Character Quotes')
 dramatic_devices_check = st.checkbox('Dramatic Devices')
 plot_check = st.checkbox('Plot')
+
+self_quiz_format = st.radio('Self-Quizzing format', ['Blank', 'No Self Quizzing'])
 
 generate_worksheet = st.button('Generate Knowledge Organiser')
 
@@ -133,7 +138,14 @@ if generate_worksheet:
             ]
             key_words = generate_response(MODEL, key_words_prompt) #generate_chat_completion(key_words_messages)
             components.append(key_words)
-                
+            if self_quiz_format == 'Blank':
+                key_words_blank_prompt = f"Pick out the key words only from these key words and definitions: {key_words}. Leave two spaces below each."
+                key_words_blank = generate_response(MODEL, key_words_blank_prompt)
+                blank_components.append(key_words_blank)
+            elif self_quiz_format == 'Cloze':
+                key_words_cloze_prompt = f"You are an expert teacher and you want to make a cloze exercise that removes certain words from text and print them at the end so that your students can guess the answers. Turn these key words and definitions into a cloze exercise: {key_words}. Output all missing words at the end."
+                key_words_cloze = generate_response(MODEL, key_words_cloze_prompt)
+                cloze_components.append(key_words_cloze)
 
 
         key_concepts_prompt = f"You are an expert teacher trying to teach your {reading_age} year old student about {topic}. Create a list of key concepts and their definitions that would be important for them to understand this topic."
@@ -144,6 +156,14 @@ if generate_worksheet:
             ]
             key_concepts = generate_response(MODEL, key_concepts_prompt)
             components.append(key_concepts)
+            if self_quiz_format == 'Blank':
+                key_concepts_blank_prompt = f"Pick out the key concepts only from these key words and definitions: {key_concepts}. Leave two spaces below each."
+                key_concepts_blank = generate_response(MODEL, key_concepts_blank_prompt)
+                blank_components.append(key_concepts_blank)
+            elif self_quiz_format == 'Cloze':
+                key_concepts_cloze_prompt = f"You are an expert teacher and you want to make a cloze exercise that removes certain words from text and print them at the end so that your students can guess the answers. Turn these key concepts and definitions into a cloze exercise: {key_concepts} Output all missing words at the end."
+                key_concepts_cloze = generate_response(MODEL, key_concepts_cloze_prompt)
+                cloze_components.append(key_concepts_cloze)
 
 
 
@@ -155,6 +175,14 @@ if generate_worksheet:
             ]
             timeline = generate_response(MODEL, timeline_prompt)
             components.append(timeline)
+            if self_quiz_format == 'Blank':
+                timeline_blank_prompt = f"Pick out the dates only from this timeline: {timeline}. Leave two spaces below each."
+                timeline_blank = generate_response(MODEL, timeline_blank_prompt)
+                blank_components.append(timeline_blank)
+            elif self_quiz_format == 'Cloze':
+                timeline_cloze_prompt = f"You are an expert teacher and you want to make a cloze exercise that removes certain words from text and print them at the end so that your students can guess the answers. Turn this timeline into a cloze exercise: {timeline}. Output all missing words at the end."
+                timeline_cloze = generate_response(MODEL, timeline_cloze_prompt)
+                cloze_components.append(timeline_cloze)
 
 
         characters_prompt = f"You are an expert teacher trying to teach your {reading_age} year old student about {topic}. Create a list of important characters and their descriptions so that student can understand the topic."
@@ -165,6 +193,14 @@ if generate_worksheet:
             ]
             characters = generate_response(MODEL, characters_prompt)
             components.append(characters)
+            if self_quiz_format == 'Blank':
+                characters_blank_prompt = f"Pick out the characters only from this list of characters and descriptions {characters}. Leave Two spaces below each."
+                characters_blank = generate_response(MODEL, characters_blank_prompt)
+                blank_components.append(characters_blank)
+            elif self_quiz_format == 'Cloze':
+                characters_cloze_prompt = f"You are an expert teacher and you want to make a cloze exercise that removes certain words from text and print them at the end so that your students can guess the answers. Turn this list of characters and descriptions into a cloze exercise: {characters}. Output all missing words at the end."
+                characters_cloze = generate_response(MODEL, characters_cloze_prompt)
+                cloze_components.append(characters_cloze)
 
 
 
@@ -179,6 +215,14 @@ if generate_worksheet:
             ]
             characters_quotes = generate_response(MODEL, characters_quotes_prompt)
             components.append(characters_quotes)
+            if self_quiz_format == 'Blank':
+                characters_quotes_blank_prompt = f"Pick out the first two words of each of the  characters quotes only from this list of characters quotes and leave enough space after the two words so someone could finish the quote: {characters_quotes}"
+                characters_quotes_blank = generate_response(MODEL, characters_quotes_blank_prompt)
+                blank_components.append(characters_quotes_blank)
+            elif self_quiz_format == 'Cloze':
+                characters_quotes_cloze_prompt = f"You are an expert teacher and you want to make a cloze exercise that removes certain words from text and print them at the end so that your students can guess the answers. Turn this list of quotes into a cloze exercise: {characters_quotes}. Leave the missing words at the end."
+                characters_quotes_cloze = generate_response(MODEL, characters_quotes_cloze_prompt)
+                cloze_components.append(characters_quotes_cloze)
 
 
         dramatic_devices_prompt = f"You are an expert teacher trying to teach your {reading_age} year old student about {topic}. Create a list of important dramatic devices from {topic} and how they used in {topic}."
@@ -189,6 +233,14 @@ if generate_worksheet:
             ]
             dramatic_devices = generate_response(MODEL, dramatic_devices_prompt )
             components.append(dramatic_devices)
+            if self_quiz_format == 'Blank':
+                dramatic_devices_blank_prompt = f"Pick out each numbered dramatic device only from this list of dramatic_devices {dramatic_devices}"
+                dramatic_devices_blank = generate_response(MODEL, dramatic_devices_blank_prompt)
+                blank_components.append(dramatic_devices_blank)
+            elif self_quiz_format == 'Cloze':
+                dramatic_devices_cloze_prompt = f"You are an expert teacher and you want to make a cloze exercise that removes certain words from text and print them at the end so that your students can guess the answers. Turn this list of dramatic devices into a cloze exercise: {dramatic_devices}. Leave the missing words at the end."
+                dramatic_devices_cloze = generate_response(MODEL, dramatic_devices_cloze_prompt)
+                cloze_components.append(dramatic_devices_cloze)
 
         plot_prompt = f"You are an expert teacher trying to teach your {reading_age} year old student about {topic}. Create a list of key episodes in the plot so that your student can understand the topic."
         if plot_check:
@@ -198,10 +250,23 @@ if generate_worksheet:
             ]
             plot = generate_response(MODEL, plot_prompt)
             components.append(plot)
+            if self_quiz_format == 'Blank':
+                plot_blank_prompt = f"Pick out the first two words from each numbered line from the following, and leave two spaces between each pair of words: {plot}"
+                plot_blank = generate_response(MODEL, plot_blank_prompt)
+                blank_components.append(plot_blank)
+            elif self_quiz_format == 'Cloze':
+                plot_cloze_prompt = f"You are an expert teacher and you want to make a cloze exercise that removes certain words from text and print them at the end so that your students can guess the answers. Turn this list of plot parts into a cloze exercise: {plot}. Leave the missing words at the end."
+                plot_cloze = generate_response(MODEL, plot_cloze_prompt)
+                cloze_components.append(plot_cloze)
 
         components_dict = {val: name for name, val in locals().items() if val in components}
         component_names = [components_dict[val] for val in components]
 
+        blank_components_dict = {val: name for name, val in locals().items() if val in blank_components}
+        blank_component_names = [blank_components_dict[val] for val in blank_components]
+
+        cloze_components_dict = {val: name for name, val in locals().items() if val in cloze_components}
+        cloze_component_names = [cloze_components_dict[val] for val in cloze_components]
             # worksheet_end = """</body>
             # </html>"""
 
@@ -281,6 +346,61 @@ if generate_worksheet:
                 for run in paragraph.runs:
                     run.font.size = Pt(6)
 
+        if self_quiz_format == 'Blank':
+            blank_slide_layout = prs.slide_layouts[5]
+            blank_slide = prs.slides.add_slide(blank_slide_layout)
+            shapes = blank_slide.shapes
+
+            shapes.title.text = 'Quiz Yourself (Blanks)'
+            cols = len(components)
+            rows = 2
+            left = top = Inches(2.0)
+            width = Inches(6.0)
+            height = Inches(0.8)
+
+            table = shapes.add_table(rows, cols, left, top, width, height).table
+
+            for i, component in enumerate(blank_components):
+                # set column widths
+                table.columns[i].width = Inches(2.0)
+                table.cell(0, i).text = component_names[i]
+                # # write body cells
+                table.cell(1, i).text = component
+
+            for cell in iter_cells(table):
+                for paragraph in cell.text_frame.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.size = Pt(6)
+
+       
+        elif self_quiz_format == 'Cloze':
+            cloze_slide_layout = prs.slide_layouts[5]
+            cloze_slide = prs.slides.add_slide(cloze_slide_layout)
+            shapes = cloze_slide.shapes
+
+            shapes.title.text = 'Quiz Yourself (Cloze)'
+            cols = len(components)
+            rows = 2
+            left = top = Inches(2.0)
+            width = Inches(6.0)
+            height = Inches(0.8)
+
+            table = shapes.add_table(rows, cols, left, top, width, height).table
+
+            for i, component in enumerate(cloze_components):
+                # set column widths
+                table.columns[i].width = Inches(2.0)
+                table.cell(0, i).text = component_names[i]
+                # # write body cells
+                table.cell(1, i).text = component
+
+            for cell in iter_cells(table):
+                for paragraph in cell.text_frame.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.size = Pt(6)
+
+        elif self_quiz_format == 'No Self Quizzing':
+            pass
 
         prs.save('knowledge_organiser.pptx')
 
@@ -292,26 +412,26 @@ if generate_worksheet:
                         data = binary_output.getvalue(),
                         file_name = 'pedagogical_knowledge_organiser.pptx')
 
+        scope = ['https://spreadsheets.google.com/feeds']
+
+        credentials = service_account.Credentials.from_service_account_info(
+                        st.secrets["gcp_service_account"], scopes = scope)
+        client = Client(scope=scope,creds=credentials)
+        spreadsheetname = st.secrets["private_gsheets_knowledge_organiser_url"]
+        spread = Spread(spreadsheetname,client = client)
+        read_df = spread.sheet_to_df(index=False)
+        emails = list(read_df.emails.values)
+        prompts = list(read_df.prompts.values)
+        dates = list(read_df.dates.values)
+
+        today = datetime.now()
+        emails.append(email)
+        prompts.append(topic)
+        dates.append(today)
+        def update_the_spreadsheet(spreadsheetname,dataframe):
+            spread.df_to_sheet(dataframe,sheet = spreadsheetname,index = False)
+        d = {'emails': emails, 'prompts': prompts, 'dates': dates}
+        df = pd.DataFrame(data=d)
+        update_the_spreadsheet('Sheet1',df)
+
 streamlit_analytics.stop_tracking()
-
-scope = ['https://spreadsheets.google.com/feeds']
-
-credentials = service_account.Credentials.from_service_account_info(
-                st.secrets["gcp_service_account"], scopes = scope)
-client = Client(scope=scope,creds=credentials)
-spreadsheetname = st.secrets["private_gsheets_knowledge_organiser_url"]
-spread = Spread(spreadsheetname,client = client)
-read_df = spread.sheet_to_df(index=False)
-emails = list(read_df.emails.values)
-prompts = list(read_df.prompts.values)
-dates = list(read_df.dates.values)
-
-today = datetime.now()
-emails.append(email)
-prompts.append(topic)
-dates.append(today)
-def update_the_spreadsheet(spreadsheetname,dataframe):
-    spread.df_to_sheet(dataframe,sheet = spreadsheetname,index = False)
-d = {'emails': emails, 'prompts': prompts, 'dates': dates}
-df = pd.DataFrame(data=d)
-update_the_spreadsheet('Sheet1',df)
