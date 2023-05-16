@@ -77,7 +77,7 @@ streamlit_analytics.start_tracking()
 st.header('Knowledge Organiser Generator')
 st.sidebar.image('pedagogical_18.png')
 st.sidebar.markdown("This worksheet generator was created using OpenAI's generative AI. Please use it carefully and check any output before using it with learners as it could be biased or wrong. ")
-st.markdown("Other Pedagogical apps to check out: [worksheet generator](https://pedagogical.app/)")
+st.markdown("Other Pedagogical apps to check out: [Question Generator](https://pedagogical-question-generator.streamlit.app/) and [worksheet generator](https://pedagogical.app/)")
 
 txt_button = st.checkbox('What is a knowledge organiser?', help='The learning science behind Knowledge Organisers')
 if txt_button:
